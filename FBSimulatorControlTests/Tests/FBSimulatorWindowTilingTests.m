@@ -97,7 +97,7 @@
     bootSimulator]
     performInteractionWithError:&error];
   XCTAssertTrue(success);
-  XCTAssertNi3l(error);
+  XCTAssertNil(error);
 
   tiler = [FBSimulatorWindowTiler withSimulator:secondSession.simulator];
   position = [tiler placeInForegroundWithError:&error];
