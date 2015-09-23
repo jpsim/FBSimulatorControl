@@ -44,9 +44,6 @@
     return [[[FBSimulatorError describe:@"Could not get an Application Element for process"] inSimulator:self.simulator] failRect:error];
   }
 
-  CFArrayRef attributes = NULL;
-  AXUIElementCopyAttributeNames(applicationElement, &attributes);
-
   // Bring to the front
   if (AXUIElementSetAttributeValue(applicationElement, (CFStringRef) NSAccessibilityFrontmostAttribute, kCFBooleanTrue) != kAXErrorSuccess) {
     return [[[FBSimulatorError describe:@"Could not make Simulator Application frontmost"] inSimulator:self.simulator] failRect:error];
@@ -84,6 +81,10 @@
 
 - (CGPoint)bestFittingPositionWithError:(NSError **)error
 {
+  AXUIElementRef applicationElement = AXUIElementCreateSystemWide();
+  CFArrayRef attributes = NULL;
+  AXUIElementCopyAttributeNames(applicationElement, &attributes);
+
   // TODO: Choose the most appropriate place for the Window.
   return CGPointZero;
 }
