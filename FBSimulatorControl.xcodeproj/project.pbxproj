@@ -95,6 +95,8 @@
 		AA74B99C1BB02CD600C1E59C /* FBSimulatorPoolAllocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA74B99B1BB02CD600C1E59C /* FBSimulatorPoolAllocationTests.m */; settings = {ASSET_TAGS = (); }; };
 		AA74B99E1BB04A4300C1E59C /* FBProcessLaunchConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA74B99D1BB04A4300C1E59C /* FBProcessLaunchConfigurationTests.m */; settings = {ASSET_TAGS = (); }; };
 		AA7EA3E71BB2CD0D0065DC52 /* FBSimulatorWindowTilingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7EA3E61BB2CD0D0065DC52 /* FBSimulatorWindowTilingTests.m */; settings = {ASSET_TAGS = (); }; };
+		AA7EA3F21BB2F44D0065DC52 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7EA3F11BB2F44D0065DC52 /* ApplicationServices.framework */; };
+		AA7EA3F61BB2F4730065DC52 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA7EA3F51BB2F4730065DC52 /* AppKit.framework */; };
 		AA819DB71B9FB40D002F58CA /* FBSimulatorControl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD70E291A4B50E500000001 /* FBSimulatorControl.framework */; };
 		AA8DF8C01BB1698000CC0411 /* FBSimulatorSessionLifecycleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8DF8BF1BB1698000CC0411 /* FBSimulatorSessionLifecycleTests.m */; settings = {ASSET_TAGS = (); }; };
 		AA8DF8C91BB18B3700CC0411 /* FBInteraction.h in Headers */ = {isa = PBXBuildFile; fileRef = AA8DF8C61BB18B3700CC0411 /* FBInteraction.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -802,6 +804,9 @@
 		AA74B99B1BB02CD600C1E59C /* FBSimulatorPoolAllocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSimulatorPoolAllocationTests.m; sourceTree = "<group>"; };
 		AA74B99D1BB04A4300C1E59C /* FBProcessLaunchConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBProcessLaunchConfigurationTests.m; sourceTree = "<group>"; };
 		AA7EA3E61BB2CD0D0065DC52 /* FBSimulatorWindowTilingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSimulatorWindowTilingTests.m; sourceTree = "<group>"; };
+		AA7EA3F11BB2F44D0065DC52 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		AA7EA3F31BB2F45C0065DC52 /* AppKitScripting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKitScripting.framework; path = System/Library/Frameworks/AppKitScripting.framework; sourceTree = SDKROOT; };
+		AA7EA3F51BB2F4730065DC52 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		AA819DB21B9FB40D002F58CA /* FBSimulatorControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FBSimulatorControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA819E0B1B9FB427002F58CA /* FBSimulatorControlTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FBSimulatorControlTests-Info.plist"; sourceTree = "<group>"; };
 		AA8DF8BF1BB1698000CC0411 /* FBSimulatorSessionLifecycleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSimulatorSessionLifecycleTests.m; sourceTree = "<group>"; };
@@ -821,6 +826,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				AA7EA3F61BB2F4730065DC52 /* AppKit.framework in Frameworks */,
+				AA7EA3F21BB2F44D0065DC52 /* ApplicationServices.framework in Frameworks */,
 				E7A30F0476B173B900000000 /* Cocoa.framework in Frameworks */,
 				E7A30F04A6018C7A00000000 /* CoreGraphics.framework in Frameworks */,
 				E7A30F04B67B6FA500000000 /* DVTFoundation.framework in Frameworks */,
@@ -1645,6 +1652,9 @@
 		B401C97968022A5500000000 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA7EA3F51BB2F4730065DC52 /* AppKit.framework */,
+				AA7EA3F31BB2F45C0065DC52 /* AppKitScripting.framework */,
+				AA7EA3F11BB2F44D0065DC52 /* ApplicationServices.framework */,
 				AA5696391B9FB7C800A2918F /* DVTiPhoneSimulatorRemoteClient.framework */,
 				AA5696371B9FB7B500A2918F /* DVTFoundation.framework */,
 				1DD70E2976B173B900000000 /* Cocoa.framework */,
