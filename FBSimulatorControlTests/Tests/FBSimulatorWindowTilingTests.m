@@ -104,6 +104,22 @@
   XCTAssertNil(error);
   XCTAssertEqual(CGRectGetMinX(position), 160);
   XCTAssertEqual(CGRectGetMinY(position), 0);
+
+  FBSimulatorSession *thirdSession = [self.control createSessionForSimulatorConfiguration:configuration error:&error];
+  XCTAssertNotNil(thirdSession);
+  XCTAssertNil(error);
+
+  success = [[thirdSession.interact
+    bootSimulator]
+    performInteractionWithError:&error];
+  XCTAssertTrue(success);
+  XCTAssertNil(error);
+
+  tiler = [FBSimulatorWindowTiler withSimulator:secondSession.simulator];
+  position = [tiler placeInForegroundWithError:&error];
+  XCTAssertNil(error);
+  XCTAssertEqual(CGRectGetMinX(position), 320);
+  XCTAssertEqual(CGRectGetMinY(position), 0);
 }
 
 @end

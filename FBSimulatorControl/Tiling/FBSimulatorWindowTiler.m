@@ -11,9 +11,12 @@
 
 #import "FBSimulator.h"
 #import "FBSimulatorError.h"
+#import "FBSimulatorPool.h"
+#import "FBSimulatorPredicates.h"
 
 #import <ApplicationServices/ApplicationServices.h>
 #import <AppKit/AppKit.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 @interface FBSimulatorWindowTiler ()
 
@@ -81,12 +84,55 @@
 
 - (CGPoint)bestFittingPositionWithError:(NSError **)error
 {
-  AXUIElementRef applicationElement = AXUIElementCreateSystemWide();
-  CFArrayRef attributes = NULL;
-  AXUIElementCopyAttributeNames(applicationElement, &attributes);
+  // TODO: Have a true position rather than the maximal x-position.
+  CGPoint point = CGPointZero;
+  for (NSValue *windowBoundsValue in [self obtainBoundsOfOtherSimulators]) {
+    point.x = MAX(point.x, CGRectGetMaxX(windowBoundsValue.rectValue));
+  }
+  return point;
+}
 
-  // TODO: Choose the most appropriate place for the Window.
-  return CGPointZero;
+- (NSArray *)obtainBoundsOfOtherSimulators
+{
+  NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
+    [FBSimulatorPredicates launched],
+    [NSCompoundPredicate notPredicateWithSubpredicate:[FBSimulatorPredicates only:self.simulator]],
+  ]];
+  NSOrderedSet *simulators = [self.simulator.pool.allSimulators filteredOrderedSetUsingPredicate:predicate];
+  NSArray *windows = [FBSimulatorWindowTiler windowsForSimulators:simulators];
+
+  NSMutableArray *boundsValues = [NSMutableArray array];
+  for (NSDictionary *window in windows) {
+    NSDictionary *boundsDictionary = window[(NSString *)kCGWindowBounds];
+    CGRect windowBounds = CGRectZero;
+    if (!CGRectMakeWithDictionaryRepresentation((CFDictionaryRef) boundsDictionary, &windowBounds)) {
+      continue;
+    }
+    [boundsValues addObject:[NSValue valueWithRect:windowBounds]];
+  }
+  return [boundsValues copy];
+}
+
++ (NSArray *)windowsForSimulators:(NSOrderedSet *)simulators
+{
+  NSArray *windows = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID));
+
+  NSOrderedSet *pids = [simulators valueForKey:@"processIdentifier"];
+  NSPredicate *pidPredicate = [NSPredicate predicateWithBlock:^ BOOL (NSDictionary *window, NSDictionary *_) {
+    NSNumber *processIdentifier = window[(NSString *)kCGWindowOwnerPID];
+    return [pids containsObject:processIdentifier];
+  }];
+  // There are a bunch of other 'Windows' with strange bounds. We just care about the named one.
+  NSPredicate *namePredicate = [NSPredicate predicateWithBlock:^ BOOL (NSDictionary *window, NSDictionary *_) {
+    NSString *windowName = window[(NSString *)kCGWindowName];
+    return windowName.length > 0;
+  }];
+  NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[
+    pidPredicate,
+    namePredicate
+  ]];
+
+  return [windows filteredArrayUsingPredicate:predicate];
 }
 
 @end

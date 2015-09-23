@@ -33,4 +33,12 @@
  */
 - (CGRect)placeInForegroundWithError:(NSError **)error;
 
+/** 
+ Creates and returns an NSArray<NSDictionary> of Simulator.app Windows that belong to the Ordered Set of Simulator.
+ 
+ @param simulator the Simulators to find Windows For.
+ @return array an Array of the windows that could be found for the provided Simulators.
+ */
++ (NSArray *)windowsForSimulators:(NSOrderedSet *)simulators;
+
 @end
